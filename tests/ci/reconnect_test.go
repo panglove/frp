@@ -5,9 +5,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/fatedier/frp/tests/config"
-	"github.com/fatedier/frp/tests/consts"
-	"github.com/fatedier/frp/tests/util"
+	"github.com/panglove/frp/tests/config"
+	"github.com/panglove/frp/tests/consts"
+	"github.com/panglove/frp/tests/util"
 
 	"github.com/stretchr/testify/assert"
 )

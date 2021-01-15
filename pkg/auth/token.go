@@ -18,8 +18,8 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/fatedier/frp/pkg/msg"
-	"github.com/fatedier/frp/pkg/util/util"
+	"github.com/panglove/frp/pkg/msg"
+	"github.com/panglove/frp/pkg/util/util"
 
 	"github.com/vaughan0/go-ini"
 )

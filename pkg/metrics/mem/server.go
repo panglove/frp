@@ -18,9 +18,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/fatedier/frp/pkg/util/log"
-	"github.com/fatedier/frp/pkg/util/metric"
-	server "github.com/fatedier/frp/server/metrics"
+	"github.com/panglove/frp/pkg/util/log"
+	"github.com/panglove/frp/pkg/util/metric"
+	server "github.com/panglove/frp/server/metrics"
 )
 
 var sm *serverMetrics = newServerMetrics()

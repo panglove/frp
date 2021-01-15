@@ -20,7 +20,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/fatedier/frp/pkg/auth"
+	"github.com/panglove/frp/pkg/auth"
 
 	ini "github.com/vaughan0/go-ini"
 )

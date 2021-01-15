@@ -1,7 +1,7 @@
 package prometheus
 
 import (
-	"github.com/fatedier/frp/server/metrics"
+	"github.com/panglove/frp/server/metrics"
 
 	"github.com/prometheus/client_golang/prometheus"
 )

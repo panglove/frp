@@ -20,7 +20,7 @@ import (
 	"log"
 	"net"
 
-	frpNet "github.com/fatedier/frp/pkg/util/net"
+	frpNet "github.com/panglove/frp/pkg/util/net"
 
 	gosocks5 "github.com/armon/go-socks5"
 )

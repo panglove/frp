@@ -41,4 +41,4 @@ CPU architecture:
 **Checklist**:
 <!--- Make sure you've completed the following steps (put an "X" between of brackets): -->
 - [] I included all information required in the sections above
-- [] I made sure there are no duplicates of this report [(Use Search)](https://github.com/fatedier/frp/issues?q=is%3Aissue)
+- [] I made sure there are no duplicates of this report [(Use Search)](https://github.com/panglove/frp/issues?q=is%3Aissue)

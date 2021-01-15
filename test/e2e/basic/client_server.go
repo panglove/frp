@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/fatedier/frp/test/e2e/framework"
-	"github.com/fatedier/frp/test/e2e/framework/consts"
+	"github.com/panglove/frp/test/e2e/framework"
+	"github.com/panglove/frp/test/e2e/framework/consts"
 
 	. "github.com/onsi/ginkgo"
 )
