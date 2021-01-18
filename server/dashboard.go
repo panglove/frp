@@ -52,11 +52,11 @@ func (svr *Service) RunDashboardServer(addr string, port int) (err error) {
 
 	// view
 	router.Handle("/favicon.ico", http.FileServer(assets.FileSystem)).Methods("GET")
-	router.PathPrefix("/static/").Handler(frpNet.MakeHTTPGzipHandler(http.StripPrefix("/static/", http.FileServer(assets.FileSystem)))).Methods("GET")
-
-	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/static/", http.StatusMovedPermanently)
-	})
+	//router.PathPrefix("/static/").Handler(frpNet.MakeHTTPGzipHandler(http.StripPrefix("/static/", http.FileServer(assets.FileSystem)))).Methods("GET")
+	//
+	//router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+	//	http.Redirect(w, r, "/static/", http.StatusMovedPermanently)
+	//})
 
 	address := fmt.Sprintf("%s:%d", addr, port)
 	server := &http.Server{
