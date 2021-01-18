@@ -25,7 +25,6 @@ import (
 	"sort"
 	"time"
 
-	"github.com/panglove/frp/assets"
 	"github.com/panglove/frp/pkg/auth"
 	"github.com/panglove/frp/pkg/config"
 	modelmetrics "github.com/panglove/frp/pkg/metrics"
@@ -275,11 +274,11 @@ func NewService(cfg config.ServerCommonConf) (svr *Service, err error) {
 	// Create dashboard web server.
 	if cfg.DashboardPort > 0 {
 		// Init dashboard assets
-		err = assets.Load(cfg.AssetsDir)
-		if err != nil {
-			err = fmt.Errorf("Load assets error: %v", err)
-			return
-		}
+		//err = assets.Load(cfg.AssetsDir)
+		//if err != nil {
+		//	err = fmt.Errorf("Load assets error: %v", err)
+		//	return
+		//}
 
 		err = svr.RunDashboardServer(cfg.DashboardAddr, cfg.DashboardPort)
 		if err != nil {
