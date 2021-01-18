@@ -20,7 +20,6 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/panglove/frp/assets"
 	frpNet "github.com/panglove/frp/pkg/util/net"
 
 	"github.com/gorilla/mux"
@@ -51,7 +50,7 @@ func (svr *Service) RunDashboardServer(addr string, port int) (err error) {
 	router.HandleFunc("/api/traffic/{name}", svr.APIProxyTraffic).Methods("GET")
 
 	// view
-	router.Handle("/favicon.ico", http.FileServer(assets.FileSystem)).Methods("GET")
+	//router.Handle("/favicon.ico", http.FileServer(assets.FileSystem)).Methods("GET")
 	//router.PathPrefix("/static/").Handler(frpNet.MakeHTTPGzipHandler(http.StripPrefix("/static/", http.FileServer(assets.FileSystem)))).Methods("GET")
 	//
 	//router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
