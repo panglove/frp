@@ -16,6 +16,7 @@ package sub
 
 import (
 	"fmt"
+	"log"
 	"os"
 
 	"github.com/spf13/cobra"
@@ -69,6 +70,8 @@ var tcpCmd = &cobra.Command{
 		proxyConfs := map[string]config.ProxyConf{
 			cfg.ProxyName: cfg,
 		}
+		log.Println(clientCfg)
+		log.Println(proxyConfs)
 		err = startService(clientCfg, proxyConfs, nil, "")
 		if err != nil {
 			fmt.Println(err)

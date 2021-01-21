@@ -190,26 +190,53 @@ func parseClientCommonCfgFromCmd() (cfg config.ClientCommonConf, err error) {
 
 	return
 }
+func RunClient(serverAddr string, serverPort int, localPort int, remotePort int, clientName string) (err error) {
 
+	content2 := `
+    [common]
+	server_addr = localhost
+	server_port = 7000
+	[name]
+	type = tcp
+	local_ip = 127.0.0.1
+	local_port = 22
+	remote_port = 6000
+	`
+	content2 = strings.ReplaceAll(content2, "localhost", serverAddr)
+	content2 = strings.ReplaceAll(content2, "7000", strconv.Itoa(serverPort))
+	content2 = strings.ReplaceAll(content2, "name", clientName)
+	content2 = strings.ReplaceAll(content2, "22", strconv.Itoa(localPort))
+	content2 = strings.ReplaceAll(content2, "6000", strconv.Itoa(remotePort))
+
+
+	cfg, err := parseClientCommonCfg(CfgFileTypeIni, content2)
+	if err != nil {
+		return
+	}
+	pxyCfgs, visitorCfgs, err := config.LoadAllConfFromIni(cfg.User, content2, cfg.Start)
+	if err != nil {
+		return err
+	}
+
+	err = startService(cfg, pxyCfgs, visitorCfgs, "/Users/pza/Documents/source/golangproject/myfrp/bin/frpc.ini")
+	return err
+}
 func runClient(cfgFilePath string) (err error) {
 	var content string
 	content, err = config.GetRenderedConfFromFile(cfgFilePath)
 	if err != nil {
 		return
 	}
-
 	cfg, err := parseClientCommonCfg(CfgFileTypeIni, content)
 	if err != nil {
 		return
 	}
-
 	pxyCfgs, visitorCfgs, err := config.LoadAllConfFromIni(cfg.User, content, cfg.Start)
 	if err != nil {
 		return err
 	}
-
 	err = startService(cfg, pxyCfgs, visitorCfgs, cfgFilePath)
-	return
+	return err
 }
 
 func startService(
