@@ -110,6 +110,9 @@ type NewProxy struct {
 
 	// tcpmux
 	Multiplexer string `json:"multiplexer"`
+
+	LocalIp          string            `json:"local_ip"`
+	LocalPort          int            `json:"local_port"`
 }
 
 type NewProxyResp struct {

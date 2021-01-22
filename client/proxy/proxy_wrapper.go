@@ -173,6 +173,11 @@ func (pw *Wrapper) checkWorker() {
 
 				var newProxyMsg msg.NewProxy
 				pw.Cfg.MarshalToMsg(&newProxyMsg)
+
+				newProxyMsg.LocalIp=pw.Cfg.GetBaseInfo().LocalIP
+
+				newProxyMsg.LocalPort=pw.Cfg.GetBaseInfo().LocalPort
+
 				pw.lastSendStartMsg = now
 				pw.handler(event.EvStartProxy, &event.StartProxyPayload{
 					NewProxyMsg: &newProxyMsg,

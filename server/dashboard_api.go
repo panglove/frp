@@ -191,6 +191,7 @@ func (svr *Service) GetProxyStatsByType(proxyType string) (proxyInfos []*ProxySt
 	proxyInfos = make([]*ProxyStatsInfo, 0, len(proxyStats))
 	for _, ps := range proxyStats {
 		proxyInfo := &ProxyStatsInfo{}
+
 		if pxy, ok := svr.pxyManager.GetByName(ps.Name); ok {
 			content, err := json.Marshal(pxy.GetConf())
 			if err != nil {

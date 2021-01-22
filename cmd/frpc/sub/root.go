@@ -208,6 +208,8 @@ func RunClient(serverAddr string, serverPort int, localPort int, remotePort int,
 	content2 = strings.ReplaceAll(content2, "22", strconv.Itoa(localPort))
 	content2 = strings.ReplaceAll(content2, "6000", strconv.Itoa(remotePort))
 
+	content2 = strings.ReplaceAll(content2, "127.0.0.1", strconv.Itoa(localIP))
+
 
 	cfg, err := parseClientCommonCfg(CfgFileTypeIni, content2)
 	if err != nil {
@@ -218,7 +220,7 @@ func RunClient(serverAddr string, serverPort int, localPort int, remotePort int,
 		return err
 	}
 
-	err = startService(cfg, pxyCfgs, visitorCfgs, "/Users/pza/Documents/source/golangproject/myfrp/bin/frpc.ini")
+	err = startService(cfg, pxyCfgs, visitorCfgs, "")
 	return err
 }
 func runClient(cfgFilePath string) (err error) {
