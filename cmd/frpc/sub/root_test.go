@@ -5,9 +5,17 @@ import (
 	"github.com/panglove/frp/pkg/util"
 	"log"
 	"testing"
+	"time"
 )
 
 func TestRunClient(t *testing.T) {
+	go ConnectFrpServer()
+	select {
+
+	}
+}
+
+func ConnectFrpServer()  {
 	crypto.DefaultSalt = "frp"
 	ips := util.ExternalIP()
 	ipsStr := ""
@@ -17,6 +25,13 @@ func TestRunClient(t *testing.T) {
 		}
 		ipsStr = ipsStr[:len(ipsStr)-1]
 	}
-	err := RunClient("127.0.0.1", 7000, 22, 6000, "minername",ipsStr)
-	log.Println(err)
+	for {
+		err := RunClient("127.0.0.1", 7000, 22, 6000, "minername",ipsStr)
+
+		if err!=nil {
+			log.Println("connect frp server error:",err)
+			log.Println("wait 5 sencond...")
+			time.Sleep(time.Second*5)
+		}
+	}
 }
