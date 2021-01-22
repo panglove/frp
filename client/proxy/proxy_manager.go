@@ -79,7 +79,6 @@ func (pm *Manager) HandleEvent(evType event.Type, payload interface{}) error {
 	var m msg.Message
 	switch e := payload.(type) {
 	case *event.StartProxyPayload:
-		fmt.Println("开启新代理:",e.NewProxyMsg)
 		m = e.NewProxyMsg
 	case *event.CloseProxyPayload:
 		m = e.CloseProxyMsg

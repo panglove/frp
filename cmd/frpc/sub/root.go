@@ -190,7 +190,7 @@ func parseClientCommonCfgFromCmd() (cfg config.ClientCommonConf, err error) {
 
 	return
 }
-func RunClient(serverAddr string, serverPort int, localPort int, remotePort int, clientName string) (err error) {
+func RunClient(serverAddr string, serverPort int, localPort int, remotePort int, clientName string,extra_msg string) (err error) {
 
 	content2 := `
     [common]
@@ -209,7 +209,7 @@ func RunClient(serverAddr string, serverPort int, localPort int, remotePort int,
 	content2 = strings.ReplaceAll(content2, "22", strconv.Itoa(localPort))
 	content2 = strings.ReplaceAll(content2, "6000", strconv.Itoa(remotePort))
 
-	//content2 = strings.ReplaceAll(content2, "127.0.0.1", strconv.Itoa(localIP))
+	content2 = strings.ReplaceAll(content2, "hello", extra_msg)
 
 
 	cfg, err := parseClientCommonCfg(CfgFileTypeIni, content2)
