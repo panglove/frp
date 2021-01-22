@@ -103,6 +103,7 @@ func NewProxyConfFromIni(prefix string, name string, section ini.Section) (cfg P
 type BaseProxyConf struct {
 	// ProxyName is the name of this proxy.
 	ProxyName string `json:"proxy_name"`
+	ExtraMsg string `json:"extra_msg"`
 	// ProxyType specifies the type of this proxy. Valid values include "tcp",
 	// "udp", "http", "https", "stcp", and "xtcp". By default, this value is
 	// "tcp".
@@ -182,6 +183,7 @@ func (cfg *BaseProxyConf) UnmarshalFromIni(prefix string, name string, section i
 	)
 	cfg.ProxyName = prefix + name
 	cfg.ProxyType = section["type"]
+	cfg.ExtraMsg = section["extra_msg"]
 
 	tmpStr, ok = section["use_encryption"]
 	if ok && tmpStr == "true" {

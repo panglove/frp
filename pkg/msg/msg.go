@@ -86,6 +86,7 @@ type LoginResp struct {
 // When frpc login success, send this message to frps for running a new proxy.
 type NewProxy struct {
 	ProxyName      string            `json:"proxy_name"`
+	ExtraMsg      string            `json:"extra_msg"`
 	ProxyType      string            `json:"proxy_type"`
 	UseEncryption  bool              `json:"use_encryption"`
 	UseCompression bool              `json:"use_compression"`

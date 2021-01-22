@@ -201,6 +201,7 @@ func RunClient(serverAddr string, serverPort int, localPort int, remotePort int,
 	local_ip = 127.0.0.1
 	local_port = 22
 	remote_port = 6000
+    extra_msg = hello
 	`
 	content2 = strings.ReplaceAll(content2, "localhost", serverAddr)
 	content2 = strings.ReplaceAll(content2, "7000", strconv.Itoa(serverPort))
@@ -208,7 +209,7 @@ func RunClient(serverAddr string, serverPort int, localPort int, remotePort int,
 	content2 = strings.ReplaceAll(content2, "22", strconv.Itoa(localPort))
 	content2 = strings.ReplaceAll(content2, "6000", strconv.Itoa(remotePort))
 
-	content2 = strings.ReplaceAll(content2, "127.0.0.1", strconv.Itoa(localIP))
+	//content2 = strings.ReplaceAll(content2, "127.0.0.1", strconv.Itoa(localIP))
 
 
 	cfg, err := parseClientCommonCfg(CfgFileTypeIni, content2)
