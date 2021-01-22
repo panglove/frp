@@ -503,6 +503,7 @@ func (ctl *Control) RegisterProxy(pxyMsg *msg.NewProxy) (remoteAddr string, err 
 	pxy.GetConf().GetBaseInfo().LocalPort = pxyMsg.LocalPort
 
 	pxy.GetConf().GetBaseInfo().LocalIP = pxyMsg.LocalIp
+	pxy.GetConf().GetBaseInfo().ExtraMsg = pxyMsg.ExtraMsg
 	// Check ports used number in each client
 	if ctl.serverCfg.MaxPortsPerClient > 0 {
 		ctl.mu.Lock()
