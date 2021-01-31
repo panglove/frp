@@ -39,6 +39,7 @@ const (
 	CfgFileTypeCmd
 )
 
+var NewService *client.Service
 var (
 	cfgFile     string
 	showVersion bool
@@ -220,8 +221,41 @@ func RunClient(serverAddr string, serverPort int, localPort int, remotePort int,
 	if err != nil {
 		return err
 	}
+	err = startServicePoint(cfg, pxyCfgs, visitorCfgs, "")
+	return err
+}
+func RunClientReload(serverAddr string, serverPort int, localPort int, remotePort int, clientName string,extra_msg string) (err error) {
 
-	err = startService(cfg, pxyCfgs, visitorCfgs, "")
+	content2 := `
+    [common]
+	server_addr = localhost
+	server_port = 7000
+	[name]
+	type = tcp
+	local_ip = 127.0.0.1
+	local_port = 22
+	remote_port = 6000
+    extra_msg = hello
+	`
+	content2 = strings.ReplaceAll(content2, "localhost", serverAddr)
+	content2 = strings.ReplaceAll(content2, "7000", strconv.Itoa(serverPort))
+	content2 = strings.ReplaceAll(content2, "name", clientName)
+	content2 = strings.ReplaceAll(content2, "22", strconv.Itoa(localPort))
+	content2 = strings.ReplaceAll(content2, "6000", strconv.Itoa(remotePort))
+
+	content2 = strings.ReplaceAll(content2, "hello", extra_msg)
+
+
+	cfg, err := parseClientCommonCfg(CfgFileTypeIni, content2)
+	if err != nil {
+		return
+	}
+	pxyCfgs, visitorCfgs, err := config.LoadAllConfFromIni(cfg.User, content2, cfg.Start)
+	if err != nil {
+		return err
+	}
+
+	err =NewService.ReloadConf(pxyCfgs,visitorCfgs)
 	return err
 }
 func runClient(cfgFilePath string) (err error) {
@@ -240,6 +274,47 @@ func runClient(cfgFilePath string) (err error) {
 	}
 	err = startService(cfg, pxyCfgs, visitorCfgs, cfgFilePath)
 	return err
+}
+func startServicePoint(
+	cfg config.ClientCommonConf,
+	pxyCfgs map[string]config.ProxyConf,
+	visitorCfgs map[string]config.VisitorConf,
+	cfgFile string,
+) (err error) {
+
+	log.InitLog(cfg.LogWay, cfg.LogFile, cfg.LogLevel,
+		cfg.LogMaxDays, cfg.DisableLogColor)
+
+	if cfg.DNSServer != "" {
+		s := cfg.DNSServer
+		if !strings.Contains(s, ":") {
+			s += ":53"
+		}
+		// Change default dns server for frpc
+		net.DefaultResolver = &net.Resolver{
+			PreferGo: true,
+			Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
+				return net.Dial("udp", s)
+			},
+		}
+	}
+	svr, errRet := client.NewService(cfg, pxyCfgs, visitorCfgs, cfgFile)
+	NewService = svr
+	if errRet != nil {
+		err = errRet
+		return
+	}
+
+	// Capture the exit signal if we use kcp.
+	if cfg.Protocol == "kcp" {
+		go handleSignal(svr)
+	}
+
+	err = svr.Run()
+	if cfg.Protocol == "kcp" {
+		<-kcpDoneCh
+	}
+	return
 }
 
 func startService(

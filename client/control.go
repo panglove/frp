@@ -373,5 +373,6 @@ func (ctl *Control) worker() {
 func (ctl *Control) ReloadConf(pxyCfgs map[string]config.ProxyConf, visitorCfgs map[string]config.VisitorConf) error {
 	ctl.vm.Reload(visitorCfgs)
 	ctl.pm.Reload(pxyCfgs)
+	fmt.Println("reload")
 	return nil
 }
