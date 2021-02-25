@@ -7,6 +7,12 @@ import (
 	"testing"
 	"time"
 )
+func TestRunClient2(t *testing.T) {
+	go ConnectFrpServer()
+	select {
+
+	}
+}
 func TestRunClient(t *testing.T) {
 	go ConnectFrpServer()
 	select {
@@ -46,9 +52,9 @@ func ConnectFrpServer()  {
 		ipsStr = ipsStr[:len(ipsStr)-1]
 	}
 
-	go ProcessClientInfo()
+	//go ProcessClientInfo()
 	for {
-		err := RunClient("127.0.0.1", 20001, 22, 6000, "mine3name",ipsStr)
+		err := RunClient("127.0.0.1", 7000, 22, 6000, "mine3name",ipsStr)
 		if err!=nil {
 			log.Println("connect frp server error:",err)
 			log.Println("wait 5 sencond...")

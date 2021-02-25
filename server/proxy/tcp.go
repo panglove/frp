@@ -16,6 +16,7 @@ package proxy
 
 import (
 	"fmt"
+	"log"
 	"net"
 
 	"github.com/panglove/frp/pkg/config"
@@ -47,6 +48,8 @@ func (pxy *TCPProxy) Run() (remoteAddr string, err error) {
 	} else {
 		pxy.realPort, err = pxy.rc.TCPPortManager.Acquire(pxy.name, pxy.cfg.RemotePort)
 		if err != nil {
+			log.Println("error:",err)
+			pxy.Close()
 			return
 		}
 		defer func() {
