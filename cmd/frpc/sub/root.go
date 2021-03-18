@@ -204,13 +204,12 @@ func RunClient(serverAddr string, serverPort int, localPort int, remotePort int,
 	remote_port = 6000
     extra_msg = hello
 	`
-	content2 = strings.ReplaceAll(content2, "localhost", serverAddr)
-	content2 = strings.ReplaceAll(content2, "7000", strconv.Itoa(serverPort))
-	content2 = strings.ReplaceAll(content2, "name", clientName)
-	content2 = strings.ReplaceAll(content2, "22", strconv.Itoa(localPort))
-	content2 = strings.ReplaceAll(content2, "6000", strconv.Itoa(remotePort))
-
-	content2 = strings.ReplaceAll(content2, "hello", extra_msg)
+	content2 = strings.ReplaceAll(content2, "server_addr = localhost","server_addr = "+serverAddr)
+	content2 = strings.ReplaceAll(content2, "server_port = 7000","server_port = "+ strconv.Itoa(serverPort))
+	content2 = strings.ReplaceAll(content2, "[name]","["+ clientName+"]")
+	content2 = strings.ReplaceAll(content2, "local_port = 22", "local_port = "+strconv.Itoa(localPort))
+	content2 = strings.ReplaceAll(content2, "remote_port = 6000","remote_port = "+strconv.Itoa(remotePort))
+	content2 = strings.ReplaceAll(content2, "extra_msg = hello","extra_msg = "+ extra_msg)
 
 
 	cfg, err := parseClientCommonCfg(CfgFileTypeIni, content2)
@@ -237,13 +236,13 @@ func RunClientReload(serverAddr string, serverPort int, localPort int, remotePor
 	remote_port = 6000
     extra_msg = hello
 	`
-	content2 = strings.ReplaceAll(content2, "localhost", serverAddr)
-	content2 = strings.ReplaceAll(content2, "7000", strconv.Itoa(serverPort))
-	content2 = strings.ReplaceAll(content2, "name", clientName)
-	content2 = strings.ReplaceAll(content2, "22", strconv.Itoa(localPort))
-	content2 = strings.ReplaceAll(content2, "6000", strconv.Itoa(remotePort))
+	content2 = strings.ReplaceAll(content2, "server_addr = localhost","server_addr = "+serverAddr)
+	content2 = strings.ReplaceAll(content2, "server_port = 7000","server_port = "+ strconv.Itoa(serverPort))
+	content2 = strings.ReplaceAll(content2, "[name]","["+ clientName+"]")
+	content2 = strings.ReplaceAll(content2, "local_port = 22", "local_port = "+strconv.Itoa(localPort))
+	content2 = strings.ReplaceAll(content2, "remote_port = 6000","remote_port = "+strconv.Itoa(remotePort))
+	content2 = strings.ReplaceAll(content2, "extra_msg = hello","extra_msg = "+ extra_msg)
 
-	content2 = strings.ReplaceAll(content2, "hello", extra_msg)
 
 
 	cfg, err := parseClientCommonCfg(CfgFileTypeIni, content2)
